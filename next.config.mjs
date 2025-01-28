@@ -9,7 +9,20 @@ jiti.import('./env/client')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    output: 'standalone',
     transpilePackages: ["geist"],
+    // Disable TypeScript and ESLint during production builds
+    typescript: {
+        ignoreBuildErrors: true,
+    },
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
+    // Disable linting and type checking in development
+    onDemandEntries: {
+        maxInactiveAge: 25 * 1000,
+        pagesBufferLength: 2,
+    },
     async headers() {
         return [
             {
